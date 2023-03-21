@@ -93,7 +93,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6, y: 0.39}
+  m_Size: {x: 0.21, y: 0.09}
   m_EdgeRadius: 0
 --- !u!1 &7896336500917279593
 GameObject:
@@ -120,7 +120,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7896336500917279593}
   m_LocalRotation: {x: -0, y: -0, z: 0.99996877, w: 0.007902932}
-  m_LocalPosition: {x: 11.63, y: -2.43, z: -0.022000121}
+  m_LocalPosition: {x: 0.005, y: 0.001, z: -0.022000121}
   m_LocalScale: {x: 0.2666552, y: 0.39298174, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
