@@ -17,13 +17,22 @@ public class Ship : MonoBehaviour
 
     bool shoot;
 
+    GameObject shield;
+    int powerUpGunLevel = 0;
+
     // Start is called before the first frame update
     void Start()
     {
+        shield = transform.Find("Shield").gameObject;
+        DesactivateShield();
         guns = GetComponentsInChildren<Gun>();
         foreach(Gun gun in guns)
         {
             gun.isActive = true;
+            if (gun.powerUpLevelRequirement != 0)
+            {
+                gun.gameObject.SetActive(false);
+            }
         }
     }
 
@@ -42,7 +51,10 @@ public class Ship : MonoBehaviour
             shoot = false;
             foreach (Gun gun in guns)
             {
-                gun.Shoot();
+                if (gun.gameObject.activeSelf)
+                {
+                    gun.Shoot();
+                }
             }
         }
     }
@@ -106,6 +118,38 @@ public class Ship : MonoBehaviour
         transform.position = pos;
     }
 
+    void ActivateShield()
+    {
+        shield.SetActive(true);
+    }
+
+    void DesactivateShield ()
+    {
+        shield.SetActive(false);
+    }
+
+    bool HasShield()
+    {
+        return shield.activeSelf;
+    }
+
+    void AddGuns()
+    {
+        powerUpGunLevel++;
+        foreach(Gun gun in guns)
+        {
+            if (gun.powerUpLevelRequirement == powerUpGunLevel)
+            {
+                gun.gameObject.SetActive(true);
+            }
+        }
+    }
+
+    void IncreaseSpeed()
+    {
+        moveSpeed*=2;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Bullet bullet = collision.GetComponent<Bullet>();
@@ -122,8 +166,34 @@ public class Ship : MonoBehaviour
         Destructable destructable = collision.GetComponent<Destructable>();
         if (destructable != null)
         {
-            Destroy(gameObject);
+            if (HasShield())
+            {
+                DesactivateShield();
+            }
+            else 
+            {
+                Destroy(gameObject);
+            }
             Destroy(bullet.gameObject);
+        }
+
+        PowerUp powerUp = collision.GetComponent<PowerUp>();
+        if (powerUp)
+        {
+            if (powerUp.activateShield)
+            {
+                ActivateShield();
+            }
+            if (powerUp.addGuns)
+            {
+                AddGuns();
+            }
+            if (powerUp.increaseSpeed)
+            {
+                IncreaseSpeed();
+            }
+            Level.instance.AddScore(powerUp.pointValue);
+            Destroy(powerUp.gameObject);
         }
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Destructable : MonoBehaviour
 {
+    public GameObject explosion;
+
     bool canBeDestroyed = false;
     public int scoreValue = 100;
 
@@ -43,12 +45,19 @@ public class Destructable : MonoBehaviour
         {
             Level.instance.AddScore(scoreValue);
             Destroy(bullet.gameObject);
-            Destroy(gameObject);
+            DestroyShip();
         }
     }
 
     private void OnDestroy()
     {
+        //Level.instance.RemoveDestructables();
+    }
+
+    void DestroyShip()
+    {
+        Instantiate(explosion, transform.position, Quaternion.identity);
         Level.instance.RemoveDestructables();
+        Destroy(gameObject);
     }
 }

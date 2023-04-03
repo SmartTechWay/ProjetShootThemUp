@@ -44,10 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 242368acda8aad149afabbaba03907f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  powerUpLevelRequirement: 0
   bullet: {fileID: 2922407074261253600, guid: f4797d6d61e56e84a970feeb60bf7b16, type: 3}
   autoshoot: 1
   shootIntervalSecond: 0.5
   shootDelaySeconds: 0
+  isActive: 0
 --- !u!1 &5466486735168059242
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,3 +268,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6865a8021182a2f44969ee7dc2f8edb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosion: {fileID: 5189382859325727243, guid: 132cc18591ab0a04fbb0ca42811a78ba, type: 3}
+  scoreValue: 100
