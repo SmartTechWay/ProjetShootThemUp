@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*Le script "Ship" gère les mouvements et actions d'un vaisseau dans un jeu. 
+ * Il permet de contrôler le déplacement du vaisseau, de tirer avec ses armes, 
+ * d'activer un bouclier, d'ajouter des armes et d'augmenter sa vitesse.
+ * Il gère aussi les collisions avec d'autres objets tels que les balles, 
+ * les obstacles destructibles et les bonus de puissance (PowerUps).
+ */
+
 public class Ship : MonoBehaviour
 {
 
@@ -20,7 +27,9 @@ public class Ship : MonoBehaviour
     GameObject shield;
     int powerUpGunLevel = 0;
 
-    // Start is called before the first frame update
+    /* Cette méthode est appelée lors de l'initialisation du vaisseau. 
+     * Elle désactive le bouclier, active tous les canons de niveau 0, et désactive les autres.
+     */
     void Start()
     {
         shield = transform.Find("Shield").gameObject;
@@ -36,7 +45,9 @@ public class Ship : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
+    /* Cette méthode est appelée à chaque image (frame) du jeu. 
+     * Elle vérifie l'entrée du clavier pour déplacer le vaisseau ou pour tirer.
+     */
     void Update()
     {
         moveUp = Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W);
@@ -59,6 +70,9 @@ public class Ship : MonoBehaviour
         }
     }
 
+    /* Cette méthode est appelée à intervalles de temps réguliers. 
+     * Elle gère le mouvement du vaisseau en fonction des touches pressées.
+     */
     private void FixedUpdate()
     {
         Vector2 pos = transform.position;
@@ -118,6 +132,9 @@ public class Ship : MonoBehaviour
         transform.position = pos;
     }
 
+    /*ActivateShield(), DesactivateShield(), HasShield(): Ces méthodes activent, 
+     * désactivent et vérifient l'état du bouclier.
+     */
     void ActivateShield()
     {
         shield.SetActive(true);
@@ -133,6 +150,9 @@ public class Ship : MonoBehaviour
         return shield.activeSelf;
     }
 
+    /*Cette méthode active les canons supplémentaires lorsque 
+     * le vaisseau gagne un niveau de puissance.
+     */
     void AddGuns()
     {
         powerUpGunLevel++;
@@ -145,11 +165,17 @@ public class Ship : MonoBehaviour
         }
     }
 
+    /*Cette méthode double la vitesse de déplacement du vaisseau.
+     */
     void IncreaseSpeed()
     {
         moveSpeed*=2;
     }
 
+    /* Cette méthode est appelée lorsque le vaisseau entre en collision avec un autre objet. 
+     * Elle vérifie le type d'objet et agit en conséquence 
+     * (par exemple, détruire le vaisseau si c'est une balle ennemie, activer le bouclier si c'est une amélioration de bouclier, etc.).
+     */
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Bullet bullet = collision.GetComponent<Bullet>();

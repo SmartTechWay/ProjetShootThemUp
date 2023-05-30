@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*ce script permet à un objet Gun dans le jeu de tirer des balles à intervalles réguliers, 
+ * soit manuellement, soit automatiquement.
+ */
+
 public class Gun : MonoBehaviour
 {
     public int powerUpLevelRequirement = 0;
@@ -17,13 +21,17 @@ public class Gun : MonoBehaviour
 
     public bool isActive = false;
 
-    // Start is called before the first frame update
+    /* Cette méthode est appelée lors de l'initialisation du canon. 
+     * Elle définit la direction du tir.
+     */
     void Start()
     {
         direction = (transform.localRotation * Vector2.right).normalized;
     }
 
-    // Update is called once per frame
+    /* Cette méthode est appelée à chaque image (frame) du jeu. 
+     * Si le canon est actif et est réglé pour tirer automatiquement, elle gère le délai et l'intervalle de tir.
+     */
     void Update()
     {
         if (!isActive)
@@ -53,7 +61,9 @@ public class Gun : MonoBehaviour
         }
     }
 
-
+    /*Cette méthode crée (instancie) une nouvelle balle à partir du type de balle spécifié, 
+     * la place à la position du canon, et lui donne la direction de tir du canon.
+     */
     public void Shoot()
     {
         GameObject go = Instantiate(bullet.gameObject, transform.position, Quaternion.identity);

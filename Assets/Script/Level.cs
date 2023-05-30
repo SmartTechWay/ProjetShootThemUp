@@ -4,6 +4,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/*Ce script Unity gère la logique de niveaux dans un jeu, notamment en changeant de scène, 
+ * en suivant et affichant le score, et en comptant le nombre d'éléments destructibles restants. 
+ * Il utilise le Singleton Pattern pour s'assurer qu'il y a toujours une seule instance de la classe Level.
+ */
+
 public class Level : MonoBehaviour
 {
 
@@ -33,13 +38,13 @@ public class Level : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
+    
     void Start()
     {
         
     }
 
-    // Update is called once per frame
+  
     void Update()
     {
         if (startNextLevel)
